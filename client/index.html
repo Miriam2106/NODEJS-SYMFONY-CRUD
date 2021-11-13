@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Company</title>
+</head>
+<body onload="getEmployees(), getOffices()">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <div class="container">
+        <div style="margin: 5px;" >
+            <button type="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="btn btn-outline-success">Register employee <i class="fas fa-plus"></i></button>
+        </div>
+        <div class="card text-center shadow p-3 mb-5 bg-white rounded">
+            <div class="card-header text-white" style="background-color: #8E1451;">
+                EMPLOYEES
+            </div>
+            <div class="card-body table-responsive">
+                <table id="table" class="table table-hover table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Name</th>
+                            <th scope="col" class="text-center">Address</th>
+                            <th scope="col" class="text-center">Salary</th>
+                            <th scope="col" class="text-center">Id office</th>
+                            <th scope="col" class="text-center">Registered</th>
+                            <th scope="col" class="text-center">Updated</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Modify</th>
+                            <th scope="col" class="text-center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalModify" style="color: white;" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="card text-center shadow p-3 bg-white rounded">
+                    <div class="card-header text-white" style="background-color: #8E1451;">
+                        MODIFY
+                    </div>
+                    <div class="card-body text-dark">
+                        <form>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Id :<i style="color: red">*</i></label>
+                                        <input type="text" id="id1" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Name :<i style="color: red">*</i></label>
+                                        <input type="text" id="name1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Address :<i style="color: red">*</i></label>
+                                        <input type="text" id="address1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Salary :<i style="color: red">*</i></label>
+                                        <input type="text" id="salary1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Id office :<i style="color: red">*</i></label>
+                                        <input type="text" id="idOfficeFk1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Status :<i style="color: red">*</i></label>
+                                        <input type="text" id="status1" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top: 20px;">
+                                <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-success" onclick="updateEmployee()">Modify</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCreate" style="color: white;" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="card text-center shadow p-3 bg-white rounded">
+                    <div class="card-header text-white" style="background-color: #8E1451;">
+                        REGISTER
+                    </div>
+                    <div class="card-body text-dark">
+                        <form>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Name :<i style="color: red">*</i></label>
+                                        <input type="text" id="name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Address :<i style="color: red">*</i></label>
+                                        <input type="text" id="address" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Salary :<i style="color: red">*</i></label>
+                                        <input type="text" id="salary" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Id office :<i style="color: red">*</i></label>
+                                        <input type="text" id="idOfficeFk" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top: 20px;">
+                                <button type="button" id="closeEmp" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-success" onclick="createEmployee()">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ofices -->
+    <div class="container">
+        <div style="margin: 5px;" >
+            <button type="button" data-bs-toggle="modal" data-bs-target="#modalCreateOf" class="btn btn-outline-success">Register office <i class="fas fa-plus"></i></button>
+        </div>
+        <div class="card text-center shadow p-3 mb-5 bg-white rounded">
+            <div class="card-header text-white" style="background-color: #8E1451;">
+                OFFICES
+            </div>
+            <div class="card-body table-responsive">
+                <table id="table2" class="table table-hover table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Address</th>
+                            <th scope="col" class="text-center">Office code</th>
+                            <th scope="col" class="text-center">Modify</th>
+                            <th scope="col" class="text-center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalModifyOf" style="color: white;" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="card text-center shadow p-3 bg-white rounded">
+                    <div class="card-header text-white" style="background-color: #8E1451;">
+                        MODIFY
+                    </div>
+                    <div class="card-body text-dark">
+                        <form>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Id :<i style="color: red">*</i></label>
+                                        <input type="text" id="idOffice1" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Address :<i style="color: red">*</i></label>
+                                        <input type="text" id="addressOf1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Office code :<i style="color: red">*</i></label>
+                                        <input type="text" id="officeCode1" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top: 20px;">
+                                <button type="button" id="closeUpdate" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-success" onclick="updateOffice()">Modify</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCreateOf" style="color: white;" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="card text-center shadow p-3 bg-white rounded">
+                    <div class="card-header text-white" style="background-color: #8E1451;">
+                        REGISTER
+                    </div>
+                    <div class="card-body text-dark">
+                        <form>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Address :<i style="color: red">*</i></label>
+                                        <input type="text" id="addressOf" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+                                        <label>Office code :<i style="color: red">*</i></label>
+                                        <input type="text" id="officeCode" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top: 20px;">
+                                <button type="button" id="closeCreate" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-success" onclick="createOffice()">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="https://kit.fontawesome.com/afd8979cda.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

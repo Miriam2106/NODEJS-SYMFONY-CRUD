@@ -1,0 +1,19 @@
+createEmployee:
+  path: /employee/create
+  controller: App\Controller\EmployeesController::createEmployee
+
+updateEmployee:
+  path: /employee/update
+  controller: App\Controller\EmployeesController::updateEmployee
+  
+getEmployee:
+  path: /employee
+  controller: App\Controller\EmployeesController::findEmployees
+
+getEmployeeById:
+  path: /employee/{id}
+  controller: App\Controller\EmployeesController::findEmployeeById
+
+deleteEmployee:
+  path: /employee/delete/{id}
+  controller: App\Controller\EmployeesController::deleteEmployee
